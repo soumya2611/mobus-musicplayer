@@ -1,8 +1,8 @@
-# 🚌 Mo Bus
+# 🚌 TransitTunes
 
 > **Your journey, your music.**
 
-**Mo Bus** is a bus playlist web application designed to make everyday bus journeys more enjoyable with continuous music playback.
+**TransitTunes** is a bus playlist web application designed to make everyday bus journeys more enjoyable with continuous music playback.
 
 Users can listen to a curated collection of songs while travelling, control playback, switch between themes, and choose their preferred language. An admin panel allows administrators to manage which songs are available to passengers.
 
@@ -22,11 +22,7 @@ Users can listen to a curated collection of songs while travelling, control play
 
 ### 🌐 Multi-Language Support
 
-Mo Bus supports multiple languages:
 
-* 🇮🇳 **Odia**
-* 🇮🇳 **Hindi**
-* 🇬🇧 **English**
 
 Users can switch the application language according to their preference.
 
@@ -58,22 +54,14 @@ This allows the passenger-facing playlist to stay curated instead of turning int
 ### User Flow
 
 ```text
-User Opens Mo Bus
-        │
-        ▼
-Select Language
+User Opens TransitTunes
         │
         ▼
 Select Theme
-        │
-        ▼
-View Available Playlist
+
         │
         ▼
 Play a Song
-        │
-        ▼
-Play / Pause / Next / Previous
         │
         ▼
 Continuous Music Playback
@@ -115,23 +103,10 @@ This gives the administrator complete control over the songs that passengers can
 
 ---
 
-## 🌍 Language Support
-
-The application provides localized content for:
-
-| Language | Support |
-| -------- | ------- |
-| ଓଡ଼ିଆ    | ✅       |
-| हिन्दी   | ✅       |
-| English  | ✅       |
-
-The language selector allows users to switch languages without changing the overall application experience.
-
----
 
 ## 🎨 Theme
 
-Mo Bus provides theme customization so users can choose the appearance they prefer.
+TransitTunes provides theme customization so users can choose the appearance they prefer.
 
 ```text
 🌞 Light Mode
@@ -139,66 +114,6 @@ Mo Bus provides theme customization so users can choose the appearance they pref
 ```
 
 The selected theme can be applied throughout the application for a consistent user experience.
-
----
-
-## 📁 Project Structure
-
-A typical project structure can be organized as:
-
-```text
-mo-bus/
-│
-├── public/
-│   ├── music/
-│   ├── horns/
-│   ├── images/
-│   └── icons/
-│
-├── src/
-│   ├── components/
-│   ├── data/
-│   ├── utils/
-│   └── assets/
-│
-├── admin/
-│   └── ...
-│
-├── README.md
-└── package.json
-```
-
-> Update the structure above according to the actual folders in your project.
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the Repository
-
-```bash
-git clone <your-repository-url>
-```
-
-### 2. Navigate to the Project
-
-```bash
-cd mo-bus
-```
-
-### 3. Install Dependencies
-
-```bash
-npm install
-```
-
-### 4. Start the Development Server
-
-```bash
-npm run dev
-```
-
-The application will be available on the local development server.
 
 ---
 
@@ -220,7 +135,7 @@ Administrators can decide which songs should be visible and playable for users.
 
 ## 🎯 Project Goal
 
-The goal of **Mo Bus** is to create a simple and enjoyable entertainment experience for passengers during their bus journey.
+The goal of **TransitTunes** is to create a simple and enjoyable entertainment experience for passengers during their bus journey.
 
 Instead of passengers having to manually search for songs or manage their own playlist, the application provides a controlled, continuous music experience.
 
@@ -231,16 +146,11 @@ Instead of passengers having to manually search for songs or manage their own pl
 Potential future enhancements include:
 
 * 🔊 Volume control
-* ❤️ Favorite songs
-* 📱 Mobile-friendly PWA support
-* 🔀 Shuffle mode
-* 🔁 Repeat mode
-* 🎼 Playlist categories
 * 📊 Admin music analytics
 * 👥 Multiple admin roles
 * 🔔 Notifications for newly added songs
 * 🎙️ Now-playing display
-* 🎚️ Audio equalizer
+
 
 ---
 
@@ -279,7 +189,7 @@ Add your preferred license here if the project is released publicly.
 
 ---
 
-## 🚌 Mo Bus
+## 🚌 TransitTunes
 
 **Listen. Travel. Enjoy the Journey.**
 
