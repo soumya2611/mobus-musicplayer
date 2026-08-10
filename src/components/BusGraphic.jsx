@@ -9,7 +9,7 @@ export default function BusGraphic({
   // Dynamic route signboard text in English
   const fromCity = currentRoute?.enFrom || "Bhubaneswar";
   const toCity = currentRoute?.enTo || "Sambalpur";
-  const routeText = `🚌 Mo Bus ★ ${fromCity} ➔ ${toCity} ★ HORN OK PLEASE`;
+  const routeText = `🚌 TransitTunes ★ ${fromCity} ➔ ${toCity} ★ HORN OK PLEASE`;
 
   // Palette definitions for 3 distinct bus models
   const themes = {

@@ -33,7 +33,7 @@ export default function MobileSidebar({
             </div>
             <div>
               <h2 className="text-lg font-bold text-amber-300">
-                Mo Bus Controls
+                TransitTunes Controls
               </h2>
               <p className="text-[10px] text-slate-400">Mobile Control Center</p>
             </div>

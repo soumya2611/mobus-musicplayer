@@ -58,7 +58,7 @@ export default function TopHeader({
         {/* Center Title Logo & Live Passengers Badge */}
         <div className="flex items-center gap-2">
           <h1 className="text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(251,191,36,0.4)] tracking-wide">
-            Mo Bus
+            TransitTunes
           </h1>
 
           <div className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] sm:text-xs font-bold font-mono flex items-center gap-1 shrink-0 animate-pulse" title="Live Passengers Connected">

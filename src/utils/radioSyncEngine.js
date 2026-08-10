@@ -1,4 +1,4 @@
-// Fixed reference epoch timestamp for 24/7 Mo Bus Live Radio (Jan 1, 2025 00:00:00 UTC)
+// Fixed reference epoch timestamp for 24/7 TransitTunes Live Radio (Jan 1, 2025 00:00:00 UTC)
 const RADIO_START_EPOCH = 1735689600000;
 const DEFAULT_SONG_DURATION = 270; // 4.5 minutes fixed deterministic duration per song
 

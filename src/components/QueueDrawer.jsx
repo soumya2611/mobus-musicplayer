@@ -24,7 +24,7 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
                 Song Queue
               </h2>
               <p className="text-xs text-amber-300/80 font-medium">
-                Mo Bus Live Radio • {playlist.length} Songs
+                TransitTunes Live Radio • {playlist.length} Songs
               </p>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
         {/* Footer */}
         <div className="pt-3 border-t border-white/10 text-center shrink-0">
           <p className="text-[11px] text-slate-400">
-            Mo Bus • Safe & Scenic Highway Experience 🚌
+            TransitTunes • Safe & Scenic Highway Experience 🚌
           </p>
         </div>
 

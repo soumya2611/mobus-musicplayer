@@ -12,6 +12,7 @@ import { Play, Sparkles, Volume2, Radio, Bell } from 'lucide-react';
 import { subscribeToRadioState, updateCentralRadioPlaylist, subscribeToCentralSongsCatalog } from './services/realtimeRadioService';
 import { calculateLiveRadioState, syncDeviceClockWithServer } from './utils/radioSyncEngine';
 import { startLivePresenceHeartbeat, subscribeToLiveListenersCount } from './services/presenceService';
+import TT from './assets/TT.png';
 
 export default function App() {
   const [allSongsList, setAllSongsList] = useState(defaultStaticPlaylist);
@@ -307,16 +308,16 @@ export default function App() {
       {/* Initial Welcome Overlay for Audio Auto-play Activation */}
       {!hasStarted && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-lg p-4 font-sans">
-          <div className="max-w-md w-full glass-panel-gold rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(245,158,11,0.3)] border border-amber-500/40 relative overflow-hidden animate-bus-bounce">
+          <div className="max-w-md w-full glass-panel-gold rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(245,158,11,0.3)] border border-amber-500/40 relative overflow-hidden ">
             
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500" />
             
-            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-4xl shadow-xl border-2 border-amber-300 animate-pulse">
-              📻
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-4xl shadow-xl border-2 border-amber-300">
+              <img src={TT} className='h-18 w-24 rounded-full' alt="TransitTunes Logo" />
             </div>
 
             <h2 className="text-3xl font-extrabold text-amber-200 mb-1">
-              Welcome to Mo Bus Live Radio
+              Welcome to TransitTunes Live Radio
             </h2>
             <p className="text-sm text-amber-300/90 font-bold mb-2">
               Non-Stop 24/7 Synchronized Bus Radio
@@ -338,7 +339,7 @@ export default function App() {
             >
               <Play className="w-5 h-5 fill-current" />
               <span>Listen Live Stream</span>
-              <Sparkles className="w-5 h-5 text-amber-950 animate-spin" />
+              {/* <Sparkles className="w-5 h-5 text-amber-950 animate-spin" /> */}
             </button>
           </div>
         </div>
