@@ -1,9 +1,9 @@
 // Audio player for authentic Indian Bus Horn files located in /public/horns/
 
 const HORN_FILES = [
+  { name: "Gori tera....", src: "/horns/Rajasthani Bus Horn Download.mp3" },
   { name: "Bus Air Horn", src: "/horns/Bus Air Horn.mp3" },
-  { name: "Indian Truck", src: "/horns/Indian Truck.mp3" },
-  { name: "Rajasthani Bus Horn", src: "/horns/Rajasthani Bus Horn Download.mp3" },
+  { name: "bus air popcorn", src: "/horns/Indian Truck.mp3" },
   { name: "Travels Horn", src: "/horns/Travels Horn Download.mp3" }
 ];
 
@@ -28,7 +28,7 @@ export function playBusHorn() {
     const hornObj = HORN_FILES[hornIndex % HORN_FILES.length];
     hornIndex = (hornIndex + 1) % HORN_FILES.length;
 
-    console.log(`🎺 Blowing Bus Horn #${hornIndex}: ${hornObj.name}`);
+    // console.log(`🎺 Blowing Bus Horn #${hornIndex}: ${hornObj.name}`);
 
     // Create single Audio instance for selected horn file
     const audio = new Audio(hornObj.src);

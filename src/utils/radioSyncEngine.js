@@ -5,37 +5,48 @@ const DEFAULT_SONG_DURATION = 240; // 4 minutes fallback duration per song
 let deviceClockOffset = 0;
 
 /**
- * Synchronizes local device clock with global NTP / UTC server time
- * to fix device clock discrepancies (fast/slow phone/laptop clocks)
+ * Synchronizes local device clock with web server HTTP Date header.
+ * Eliminates CORS errors and network resets by fetching same-origin server time.
  */
 export async function syncDeviceClockWithServer() {
   try {
     const start = Date.now();
-    const res = await fetch("https://worldtimeapi.org/api/timezone/Etc/UTC");
-    if (res.ok) {
-      const data = await res.json();
-      const serverMs = new Date(data.datetime).getTime();
-      const roundTrip = Math.round((Date.now() - start) / 2);
-      deviceClockOffset = (serverMs + roundTrip) - Date.now();
-      console.log("⏱️ Server clock sync complete. Offset:", deviceClockOffset, "ms");
-      return;
+    const res = await fetch(window.location.href, { method: 'HEAD', cache: 'no-store' });
+    const dateHeader = res.headers.get('date');
+    
+    if (dateHeader) {
+      const serverMs = new Date(dateHeader).getTime();
+      if (!isNaN(serverMs) && serverMs > 0) {
+        const roundTrip = Math.round((Date.now() - start) / 2);
+        deviceClockOffset = (serverMs + roundTrip) - Date.now();
+        console.log("⏱️ Same-origin server clock sync complete. Offset:", deviceClockOffset, "ms");
+        return;
+      }
     }
   } catch (e) {
-    // Secondary fallback NTP server API
-    try {
-      const start2 = Date.now();
-      const res2 = await fetch("https://timeapi.io/api/time/current/zone?timeZone=UTC");
-      if (res2.ok) {
-        const data2 = await res2.json();
-        const serverMs2 = new Date(data2.dateTime + "Z").getTime();
-        const roundTrip2 = Math.round((Date.now() - start2) / 2);
-        deviceClockOffset = (serverMs2 + roundTrip2) - Date.now();
-        console.log("⏱️ Secondary server clock sync complete. Offset:", deviceClockOffset, "ms");
-      }
-    } catch (err2) {
-      console.warn("Using local system clock for 24/7 radio sync.");
-    }
+    console.warn("Same-origin HEAD request info:", e);
   }
+
+  // Backup fallback using WorldTimeAPI if same-origin header is not exposed
+  try {
+    const start2 = Date.now();
+    const res2 = await fetch("https://worldtimeapi.org/api/timezone/Etc/UTC");
+    if (res2.ok) {
+      const data2 = await res2.json();
+      const serverMs2 = new Date(data2.datetime).getTime();
+      const roundTrip2 = Math.round((Date.now() - start2) / 2);
+      const offset2 = (serverMs2 + roundTrip2) - Date.now();
+      if (Math.abs(offset2) < 60000) {
+        deviceClockOffset = offset2;
+        console.log("⏱️ Backup NTP clock sync complete. Offset:", deviceClockOffset, "ms");
+        return;
+      }
+    }
+  } catch (err2) {
+    // Keep 0 offset if offline
+  }
+
+  deviceClockOffset = 0;
 }
 
 /**
@@ -48,17 +59,19 @@ export function getAccurateServerTime() {
 /**
  * Calculates current active song and exact second offset for 24/7 Live Radio Sync
  * @param {Array} playlist - Active songs in radio queue
+ * @param {Object} songDurationsMap - Map of song ID to exact loaded duration in seconds
  * @returns {Object} { currentTrackIndex, currentTrackTime, currentTrack, totalPlaylistDuration }
  */
-export function calculateLiveRadioState(playlist) {
+export function calculateLiveRadioState(playlist, songDurationsMap = {}) {
   if (!playlist || playlist.length === 0) {
     return { currentTrackIndex: 0, currentTrackTime: 0, currentTrack: null, totalPlaylistDuration: 0 };
   }
 
-  // 1. Calculate cumulative start time for each track
+  // 1. Calculate cumulative start time for each track using exact duration if available
   let accumulatedTime = 0;
   const tracksWithTiming = playlist.map((track) => {
-    const duration = Number(track.durationSeconds) || DEFAULT_SONG_DURATION;
+    const loadedDuration = songDurationsMap[track.id];
+    const duration = loadedDuration && loadedDuration > 10 ? loadedDuration : (Number(track.durationSeconds) || DEFAULT_SONG_DURATION);
     const startTime = accumulatedTime;
     accumulatedTime += duration;
     return { ...track, durationSeconds: duration, startTime, endTime: accumulatedTime };
@@ -66,7 +79,7 @@ export function calculateLiveRadioState(playlist) {
 
   const totalPlaylistDuration = accumulatedTime;
 
-  // 2. Use NTP synced accurate server time instead of raw device clock
+  // 2. Use NTP / HTTP Date synced accurate server time
   const now = getAccurateServerTime();
   const elapsedTotalSeconds = ((now - RADIO_START_EPOCH) / 1000) % totalPlaylistDuration;
   const safeElapsedSeconds = elapsedTotalSeconds < 0 ? elapsedTotalSeconds + totalPlaylistDuration : elapsedTotalSeconds;

@@ -11,18 +11,31 @@ import { playlist as defaultStaticPlaylist, BUS_ROUTES } from './data/playlist';
 import { Play, Sparkles, Volume2, Radio, Bell } from 'lucide-react';
 import { subscribeToRadioState, updateCentralRadioPlaylist, subscribeToCentralSongsCatalog } from './services/realtimeRadioService';
 import { calculateLiveRadioState, syncDeviceClockWithServer } from './utils/radioSyncEngine';
+import { startLivePresenceHeartbeat, subscribeToLiveListenersCount } from './services/presenceService';
 
 export default function App() {
   const [allSongsList, setAllSongsList] = useState(defaultStaticPlaylist);
-
-  // Sync device clock with global UTC server time on mount
-  useEffect(() => {
-    syncDeviceClockWithServer();
-  }, []);
+  const [songDurationsMap, setSongDurationsMap] = useState({});
+  const [liveListenersCount, setLiveListenersCount] = useState(1);
+  const [enabledSongIds, setEnabledSongIds] = useState(() => defaultStaticPlaylist.map(s => s.id));
 
   // Live Toast Notification Banner state
   const [broadcastNotice, setBroadcastNotice] = useState('');
   const [lastNoticeTime, setLastNoticeTime] = useState(0);
+
+  // Sync device clock with global UTC server time and start live presence heartbeat on mount
+  useEffect(() => {
+    syncDeviceClockWithServer();
+    startLivePresenceHeartbeat();
+
+    const unsubscribePresence = subscribeToLiveListenersCount((count) => {
+      setLiveListenersCount(count);
+    });
+
+    return () => {
+      if (typeof unsubscribePresence === 'function') unsubscribePresence();
+    };
+  }, []);
 
   // Subscribe to dynamic central song catalog (Admin uploaded songs)
   useEffect(() => {
@@ -37,23 +50,9 @@ export default function App() {
     };
   }, []);
 
-  // Load enabled song IDs from localStorage or default to all songs
-  const [enabledSongIds, setEnabledSongIds] = useState(() => {
-    try {
-      const saved = localStorage.getItem('mobus_enabled_songs');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    return defaultStaticPlaylist.map(s => s.id);
-  });
-
   const [isCentralSynced, setIsCentralSynced] = useState(false);
 
-  // Active playlist contains only checked songs
+  // Active playlist contains only checked songs from central catalog
   const activePlaylist = allSongsList.filter(s => enabledSongIds.includes(s.id));
   const validPlaylist = activePlaylist.length > 0 ? activePlaylist : allSongsList;
 
@@ -74,10 +73,10 @@ export default function App() {
 
   const audioRef = useRef(null);
 
-  // 24/7 Live Radio Synchronization Engine Loop (runs every 1s)
+  // 24/7 Live Radio Synchronization Engine Loop (runs every 1s using deterministic song durations)
   useEffect(() => {
     const syncLiveRadio = () => {
-      const liveState = calculateLiveRadioState(validPlaylist);
+      const liveState = calculateLiveRadioState(validPlaylist, songDurationsMap);
       setCurrentTrackIndex(prevIdx => {
         if (prevIdx !== liveState.currentTrackIndex) {
           return liveState.currentTrackIndex;
@@ -90,14 +89,13 @@ export default function App() {
     syncLiveRadio();
     const interval = setInterval(syncLiveRadio, 1000);
     return () => clearInterval(interval);
-  }, [validPlaylist]);
+  }, [validPlaylist, songDurationsMap]);
 
   // Subscribe to central Firebase real-time radio state on mount
   useEffect(() => {
     const unsubscribe = subscribeToRadioState((remoteData) => {
       if (remoteData?.enabledSongIds && Array.isArray(remoteData.enabledSongIds) && remoteData.enabledSongIds.length > 0) {
         setEnabledSongIds(remoteData.enabledSongIds);
-        localStorage.setItem('mobus_enabled_songs', JSON.stringify(remoteData.enabledSongIds));
         setIsCentralSynced(true);
       }
 
@@ -118,11 +116,9 @@ export default function App() {
   const currentTrack = validPlaylist[safeTrackIndex] || validPlaylist[0];
   const currentRoute = BUS_ROUTES[currentRouteIndex];
 
-  // Save enabled songs to localStorage AND push to central Firebase Firestore
+  // Save enabled songs to central Firebase Firestore so ALL devices update live
   const handleSaveEnabledSongs = async (newIds) => {
     setEnabledSongIds(newIds);
-    localStorage.setItem('mobus_enabled_songs', JSON.stringify(newIds));
-    // Push update to central cloud database so all 5 connected users receive updates live!
     await updateCentralRadioPlaylist(newIds);
   };
 
@@ -174,13 +170,19 @@ export default function App() {
     }
   }, [targetTrackTime, isPlaying]);
 
-  // Audio event listeners
+  // Audio event listeners & exact duration tracking
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration || 0);
+    const updateDuration = () => {
+      const realDur = Math.round(audio.duration || 0);
+      setDuration(realDur);
+      if (currentTrack?.id && realDur > 10) {
+        setSongDurationsMap(prev => ({ ...prev, [currentTrack.id]: realDur }));
+      }
+    };
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
@@ -189,7 +191,7 @@ export default function App() {
       audio.removeEventListener('timeupdate', updateTime);
       audio.removeEventListener('loadedmetadata', updateDuration);
     };
-  }, [safeTrackIndex, validPlaylist.length]);
+  }, [safeTrackIndex, validPlaylist.length, currentTrack]);
 
   // Sync volume & mute
   useEffect(() => {
@@ -216,10 +218,7 @@ export default function App() {
         src={currentTrack.src}
         preload="metadata"
         onError={(e) => {
-          console.warn(`Audio stream error for "${currentTrack?.englishTitle}". Skipping to next track...`);
-          setTimeout(() => {
-            setCurrentTrackIndex(prev => (prev + 1) % (validPlaylist.length || 1));
-          }, 1000);
+          console.warn(`Audio stream error for "${currentTrack?.englishTitle}". Checking fallback stream...`);
         }}
       />
 
@@ -239,6 +238,7 @@ export default function App() {
         onSelectRoute={setCurrentRouteIndex}
         onToggleQueue={() => setIsQueueOpen(true)}
         onOpenAdmin={() => setIsAdminOpen(true)}
+        liveListenersCount={liveListenersCount}
       />
 
       {/* Bumper Quotes Ticker Header */}
@@ -320,16 +320,16 @@ export default function App() {
             </div>
 
             <h2 className="text-3xl font-extrabold text-amber-200 mb-1">
-              Mo Bus 24/7 Live FM
+              Welcome to Mo Bus Live Radio
             </h2>
             <p className="text-sm text-amber-300/90 font-bold mb-2">
-              Non-Stop Synchronized Bus Radio
+              Non-Stop 24/7 Synchronized Bus Radio
             </p>
 
             <div className="my-4 p-3 rounded-xl bg-black/50 border border-amber-500/20 text-xs text-slate-200 text-left space-y-1.5 font-sans">
               <div className="flex items-center gap-2 text-amber-300 font-bold">
                 <Volume2 className="w-4 h-4" />
-                <span>🔴 24/7 Synchronized Live Stream Active</span>
+                <span>👥 {liveListenersCount} Passengers Connected Live</span>
               </div>
               <p>• Every listener hears the exact same song at the exact same second 📻</p>
               <p>• Continuous non-stop retro radio broadcast 24/7 🎵</p>

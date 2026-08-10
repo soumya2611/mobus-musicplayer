@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, Navigation, Sun, Moon, Sparkles, ListMusic, Lock, Menu } from 'lucide-react';
+import { Clock, Navigation, Sun, Moon, Sparkles, ListMusic, Lock, Menu, Users } from 'lucide-react';
 import { BUS_ROUTES } from '../data/playlist';
 import MobileSidebar from './MobileSidebar';
 
@@ -12,7 +12,8 @@ export default function TopHeader({
   onToggleQueue,
   onOpenAdmin,
   isShuffle,
-  onToggleShuffle
+  onToggleShuffle,
+  liveListenersCount = 1
 }) {
   const [timeStr, setTimeStr] = useState('');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -54,11 +55,16 @@ export default function TopHeader({
           </button>
         </div>
 
-        {/* Center Title Logo: Mo Bus */}
-        <div className="text-center">
+        {/* Center Title Logo & Live Passengers Badge */}
+        <div className="flex items-center gap-2">
           <h1 className="text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(251,191,36,0.4)] tracking-wide">
             Mo Bus
           </h1>
+
+          <div className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] sm:text-xs font-bold font-mono flex items-center gap-1 shrink-0 animate-pulse" title="Live Passengers Connected">
+            <Users className="w-3 h-3 text-emerald-400" />
+            <span>{liveListenersCount} Live Passengers</span>
+          </div>
         </div>
 
         {/* Right Desktop Controls */}

@@ -7,6 +7,7 @@ export const playlist = [
     englishTitle: "Jeeta Tha Jiske Liye",
     movie: "Dilwale (1994)",
     artists: "Kumar Sanu & Alka Yagnik",
+    durationSeconds: 270,
     src: `${AUDIO_CDN_BASE_URL}/Jeeta_Tha_Jiske_Liye.mp3`,
     cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=80"
   },
@@ -16,6 +17,7 @@ export const playlist = [
     englishTitle: "Dil Ne Yeh Kaha Hain Dil Se",
     movie: "Dhadkan (2000)",
     artists: "Udit Narayan, Alka Yagnik & Kumar Sanu",
+    durationSeconds: 310,
     src: `${AUDIO_CDN_BASE_URL}/Dil_Ne_Yeh_Kaha_Hain.mp3`,
     cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=80"
   },
@@ -25,6 +27,7 @@ export const playlist = [
     englishTitle: "Mera Dil Bhi Kitna Paagal Hai",
     movie: "Saajan (1991)",
     artists: "Kumar Sanu & Alka Yagnik",
+    durationSeconds: 280,
     src: `${AUDIO_CDN_BASE_URL}/Mera_Dil_Bhi_Kitna_Paagal.mp3`,
     cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=80"
   },
@@ -34,6 +37,7 @@ export const playlist = [
     englishTitle: "Pardesi Pardesi Jana Nahi",
     movie: "Raja Hindustani (1996)",
     artists: "Udit Narayan & Alka Yagnik",
+    durationSeconds: 300,
     src: `${AUDIO_CDN_BASE_URL}/Pardesi_Pardesi.mp3`,
     cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=500&auto=format&fit=crop&q=80"
   },
@@ -43,6 +47,7 @@ export const playlist = [
     englishTitle: "Aye Mere Humsafar",
     movie: "Qayamat Se Qayamat Tak (1988)",
     artists: "Udit Narayan & Alka Yagnik",
+    durationSeconds: 260,
     src: `${AUDIO_CDN_BASE_URL}/Aye_Mere_Humsafar.mp3`,
     cover: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500&auto=format&fit=crop&q=80"
   },
@@ -52,6 +57,7 @@ export const playlist = [
     englishTitle: "Raah Mein Unse Mulaqat",
     movie: "Vijaypath (1994)",
     artists: "Kumar Sanu & Alka Yagnik",
+    durationSeconds: 290,
     src: `${AUDIO_CDN_BASE_URL}/Raah_Mein_Unse_Mulaqat.mp3`,
     cover: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=500&auto=format&fit=crop&q=80"
   },
@@ -61,6 +67,7 @@ export const playlist = [
     englishTitle: "Tu Dharti Pe Chaahe",
     movie: "Jeet (1996)",
     artists: "Kumar Sanu & Alka Yagnik",
+    durationSeconds: 275,
     src: `${AUDIO_CDN_BASE_URL}/Tu_Dharti_Pe_Chaahe.mp3`,
     cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&auto=format&fit=crop&q=80"
   },
@@ -70,6 +77,7 @@ export const playlist = [
     englishTitle: "Mauka Milega To Hum",
     movie: "Dilwale (1994)",
     artists: "Kumar Sanu & Alka Yagnik",
+    durationSeconds: 265,
     src: `${AUDIO_CDN_BASE_URL}/Mauka_Milega_To_Hum.mp3`,
     cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?w=500&auto=format&fit=crop&q=80"
   },
@@ -79,6 +87,7 @@ export const playlist = [
     englishTitle: "Main Duniya Bhula Dunga",
     movie: "Aashiqui (1990)",
     artists: "Kumar Sanu & Anuradha Paudwal",
+    durationSeconds: 295,
     src: `${AUDIO_CDN_BASE_URL}/Main_Duniya_Bhula_Dunga.mp3`,
     cover: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=500&auto=format&fit=crop&q=80"
   },
@@ -88,6 +97,7 @@ export const playlist = [
     englishTitle: "Kitna Pyaara Tujhe",
     movie: "Raja Hindustani (1996)",
     artists: "Udit Narayan & Alka Yagnik",
+    durationSeconds: 285,
     src: `${AUDIO_CDN_BASE_URL}/Kitna_Pyaara_Tujhe.mp3`,
     cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&auto=format&fit=crop&q=80"
   },
@@ -97,6 +107,7 @@ export const playlist = [
     englishTitle: "I Love My India",
     movie: "Pardes (1997)",
     artists: "Kavita Krishnamurthy & Hariharan",
+    durationSeconds: 320,
     src: `${AUDIO_CDN_BASE_URL}/15_August_Song_I_Love_My_India_Independence_Day_Song_Pardes_1997.mp3`,
     cover: "https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=500&auto=format&fit=crop&q=80"
   },
@@ -106,6 +117,7 @@ export const playlist = [
     englishTitle: "Aapke Pyaar Mein Hum",
     movie: "Raaz (2002)",
     artists: "Alka Yagnik",
+    durationSeconds: 270,
     src: `${AUDIO_CDN_BASE_URL}/Aapke_Pyaar_Mein_Hum_Savarne_Lage_Alka_Yagnik_Raaz.mp3`,
     cover: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&auto=format&fit=crop&q=80"
   },
@@ -115,6 +127,7 @@ export const playlist = [
     englishTitle: "Aaye Ho Meri Zindagi Mein",
     movie: "Raja Hindustani (1996)",
     artists: "Udit Narayan",
+    durationSeconds: 310,
     src: `${AUDIO_CDN_BASE_URL}/Aaye_Ho_Meri_Zindagi_Mein_Udit_Narayan_Aamir_Karisma_Evergreen_Love_Song.mp3`,
     cover: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&auto=format&fit=crop&q=80"
   },
@@ -124,6 +137,7 @@ export const playlist = [
     englishTitle: "Apna Bana Le",
     movie: "Bhediya (2022)",
     artists: "Arijit Singh & Sachin-Jigar",
+    durationSeconds: 260,
     src: `${AUDIO_CDN_BASE_URL}/Apna_Bana_Le_Bhediya_Varun_Dhawan_Kriti_Sanon_SachinJigar_Arijit_Singh_Amitabh_Bhattacharya.mp3`,
     cover: "https://images.unsplash.com/photo-1499364615650-ec38552f4f34?w=500&auto=format&fit=crop&q=80"
   },
@@ -133,6 +147,7 @@ export const playlist = [
     englishTitle: "Bahut Pyar Karte Hain",
     movie: "Saajan (1991)",
     artists: "Anuradha Paudwal",
+    durationSeconds: 250,
     src: `${AUDIO_CDN_BASE_URL}/Bahut_Pyar_Karte_Hain_Tumko_Sanam_Love_Songs_Madhuri_DixitSanjay_Dutt_Saajan_Anuradha.mp3`,
     cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=80"
   },
@@ -142,6 +157,7 @@ export const playlist = [
     englishTitle: "Dipatie Mote Karidia Prabhu",
     movie: "Odia Devotional",
     artists: "Kumar Bapi & Mohan Saheb",
+    durationSeconds: 280,
     src: `${AUDIO_CDN_BASE_URL}/Dipatie_Mote_Karidia_Prabhu_Mohan_Saheb_Kumar_Bapi_Silk_Music.mp3`,
     cover: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=500&auto=format&fit=crop&q=80"
   },
@@ -151,6 +167,7 @@ export const playlist = [
     englishTitle: "Hum Pyaar Hai Tumhare",
     movie: "Haan Maine Bhi Pyaar Kiya (2002)",
     artists: "Kumar Sanu & Alka Yagnik",
+    durationSeconds: 300,
     src: `${AUDIO_CDN_BASE_URL}/Hum_Pyaar_Hai_Tumhare_Lyrical_Haan_Maine_Bhi_Pyaar_Kiya_Kumar_Sanu_Alka_Yagnik_Love_Songs.mp3`,
     cover: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=500&auto=format&fit=crop&q=80"
   },
@@ -160,6 +177,7 @@ export const playlist = [
     englishTitle: "Hum Tumko Nigahon Mein",
     movie: "Garv (2004)",
     artists: "Udit Narayan & Shreya Ghoshal",
+    durationSeconds: 290,
     src: `${AUDIO_CDN_BASE_URL}/Hum_Tumko_Nigahon_Mein_GarvPride_Honour_Salman_Khan_Shilpa_Shetty.mp3`,
     cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=80"
   },
@@ -169,6 +187,7 @@ export const playlist = [
     englishTitle: "Jagannathe Ho Mu Jadi Tama",
     movie: "Odia Bhajan",
     artists: "Namita Agrawal",
+    durationSeconds: 310,
     src: `${AUDIO_CDN_BASE_URL}/Jagannathe_Ho_Mu_Jadi_Tama_Odia_Bhajan_Namita_Agrawal_Sidharth_Music.mp3`,
     cover: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=500&auto=format&fit=crop&q=80"
   },
@@ -178,6 +197,7 @@ export const playlist = [
     englishTitle: "Jagatare Paibuni Emiti Thakura",
     movie: "Odia Bhajan",
     artists: "Bhajan Hits",
+    durationSeconds: 320,
     src: `${AUDIO_CDN_BASE_URL}/Jagatare_Paibuni_Emiti_Thakura_Tie_Full_Song_Jagannatha_Bhajan.mp3`,
     cover: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=500&auto=format&fit=crop&q=80"
   },
@@ -187,6 +207,7 @@ export const playlist = [
     englishTitle: "Jiye To Jiye Kaise",
     movie: "Saajan (1991)",
     artists: "Kumar Sanu, SPB & Anuradha",
+    durationSeconds: 315,
     src: `${AUDIO_CDN_BASE_URL}/Jiye_To_Jiye_Kaise_Bin_AapkeSajan_1991_Full_HD_Sanjay_Dutt_Madhuri_Dixit_Salman_Khan.mp3`,
     cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=80"
   },
@@ -196,6 +217,7 @@ export const playlist = [
     englishTitle: "Kasam Khake Kaho",
     movie: "Dil Hai Tumhaara (2002)",
     artists: "Alka Yagnik & Kumar Sanu",
+    durationSeconds: 305,
     src: `${AUDIO_CDN_BASE_URL}/Kasam_Khake_Kaho_Dil_Hai_Tumhaara_Preity_Arjun_Mahima_Alka_Y_Kumar_Sanu.mp3`,
     cover: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&auto=format&fit=crop&q=80"
   },
@@ -205,6 +227,7 @@ export const playlist = [
     englishTitle: "Chand Se Parda Kijiye",
     movie: "Aao Pyar Karen (1994)",
     artists: "Kumar Sanu",
+    durationSeconds: 285,
     src: `${AUDIO_CDN_BASE_URL}/Kumar_Sanu_90s_Hits_Chand_Se_Parda_Kijiye_Aao_Pyar_Karen_1994_Saif_Ali_Khan_Shilpa_Shetty.mp3`,
     cover: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=500&auto=format&fit=crop&q=80"
   },
@@ -214,6 +237,7 @@ export const playlist = [
     englishTitle: "Mausam Ki Tarah Tum Bhi",
     movie: "Jaanwar (1999)",
     artists: "Manhar Udhas & Alka Yagnik",
+    durationSeconds: 295,
     src: `${AUDIO_CDN_BASE_URL}/Mausam_Ki_Tarah_Jaanwar_Akshay_Kumar_Karishma_Kapoor_.mp3`,
     cover: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500&auto=format&fit=crop&q=80"
   },
@@ -223,6 +247,7 @@ export const playlist = [
     englishTitle: "Meri Tarah Tum Bhi",
     movie: "Kya Yehi Pyaar Hai (2002)",
     artists: "Alka Yagnik & Babul Supriyo",
+    durationSeconds: 290,
     src: `${AUDIO_CDN_BASE_URL}/Meri_Tarah_Tum_Bhi_Alka_Yagnik_Babul_Supriyo_Kya_Yehi_Pyaar_Hai_2002.mp3`,
     cover: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=500&auto=format&fit=crop&q=80"
   },
@@ -232,6 +257,7 @@ export const playlist = [
     englishTitle: "Mubarak Ho Tumko Ye Shaadi",
     movie: "Haan Maine Bhi Pyaar Kiya (2002)",
     artists: "Udit Narayan",
+    durationSeconds: 320,
     src: `${AUDIO_CDN_BASE_URL}/Mubarak_Ho_Tumko_Ye_Shaadi_Tumhari_Haan_Maine_Bhi_Pyaar_Kiya_Udit_N_Akshay_Karisma_Abhishek.mp3`,
     cover: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&auto=format&fit=crop&q=80"
   },
@@ -241,6 +267,7 @@ export const playlist = [
     englishTitle: "Nilachala Dham",
     movie: "Odia Bhajan",
     artists: "Sricharan & Arun Mantri",
+    durationSeconds: 300,
     src: `${AUDIO_CDN_BASE_URL}/Nilachala_dhamHD_Odia_Jaganath_Bhajan_Sricharan_Arun_Mantri_Sabitree_Music.mp3`,
     cover: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=500&auto=format&fit=crop&q=80"
   },
@@ -250,6 +277,7 @@ export const playlist = [
     englishTitle: "Pehli Pehli Baar Mohabbat",
     movie: "Sirf Tum (1999)",
     artists: "Alka Yagnik & Kumar Sanu",
+    durationSeconds: 285,
     src: `${AUDIO_CDN_BASE_URL}/Pehli_Pehli_Baar_Mohabbat_Ki_Hai_Sirf_Tum_Sanjay_Kapoor_Priya_Gill.mp3`,
     cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&auto=format&fit=crop&q=80"
   },
@@ -259,6 +287,7 @@ export const playlist = [
     englishTitle: "Phoolon Sa Chehra Tera",
     movie: "Anari (1993)",
     artists: "Udit Narayan",
+    durationSeconds: 290,
     src: `${AUDIO_CDN_BASE_URL}/Phoolon_Sa_Chehra_Tera_Anari_Udit_Narayan_90s_Hindi_Song.mp3`,
     cover: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?w=500&auto=format&fit=crop&q=80"
   },
@@ -268,6 +297,7 @@ export const playlist = [
     englishTitle: "Pyaar Ki Ek Kahani",
     movie: "Krrish (2006)",
     artists: "Sonu Nigam & Shreya Ghoshal",
+    durationSeconds: 310,
     src: `${AUDIO_CDN_BASE_URL}/Pyaar_Ki_Ek_Kahani_Song_Krrish_Sonu_NigamShreya_Ghosal_Hrithik_RoshanPriyanka.mp3`,
     cover: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=500&auto=format&fit=crop&q=80"
   },
@@ -277,6 +307,7 @@ export const playlist = [
     englishTitle: "Teri Umeed Tera Intezar",
     movie: "Deewana (1992)",
     artists: "Kumar Sanu & Sadhana Sargam",
+    durationSeconds: 300,
     src: `${AUDIO_CDN_BASE_URL}/Teri_Umeed_Tera_Intezar_Deewana_1992_Rishi_Kapoor_Divya_Bharti_Kumar_Sanu_90s_Hit_Songs.mp3`,
     cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&auto=format&fit=crop&q=80"
   },
@@ -286,6 +317,7 @@ export const playlist = [
     englishTitle: "Woh Ho Tum",
     movie: "Muskaan (2004)",
     artists: "Sonu Nigam & Anuradha Paudwal",
+    durationSeconds: 280,
     src: `${AUDIO_CDN_BASE_URL}/Woh_Ho_Tum_Muskaan_Sonu_Nigam_Anuradha_Paudwal.mp3`,
     cover: "https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=500&auto=format&fit=crop&q=80"
   },
@@ -295,6 +327,7 @@ export const playlist = [
     englishTitle: "Zindagi Ban Gaye Ho Tum",
     movie: "Kasoor (2001)",
     artists: "Udit Narayan & Alka Yagnik",
+    durationSeconds: 305,
     src: `${AUDIO_CDN_BASE_URL}/Zindagi_Ban_Gaye_Ho_Tum_Full_Udit_Narayan_Alka_Yagnik_Kasoor_Movie_Hitz_Music.mp3`,
     cover: "https://images.unsplash.com/photo-1499364615650-ec38552f4f34?w=500&auto=format&fit=crop&q=80"
   }
