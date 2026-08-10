@@ -1,6 +1,6 @@
 // Fixed reference epoch timestamp for 24/7 Mo Bus Live Radio (Jan 1, 2025 00:00:00 UTC)
 const RADIO_START_EPOCH = 1735689600000;
-const DEFAULT_SONG_DURATION = 240; // 4 minutes fallback duration per song
+const DEFAULT_SONG_DURATION = 270; // 4.5 minutes fixed deterministic duration per song
 
 let deviceClockOffset = 0;
 
@@ -57,21 +57,20 @@ export function getAccurateServerTime() {
 }
 
 /**
- * Calculates current active song and exact second offset for 24/7 Live Radio Sync
+ * PURE & DETERMINISTIC 24/7 Live Radio Calculation
+ * Uses fixed track durations so every device on Earth calculates the exact same track & second!
  * @param {Array} playlist - Active songs in radio queue
- * @param {Object} songDurationsMap - Map of song ID to exact loaded duration in seconds
  * @returns {Object} { currentTrackIndex, currentTrackTime, currentTrack, totalPlaylistDuration }
  */
-export function calculateLiveRadioState(playlist, songDurationsMap = {}) {
+export function calculateLiveRadioState(playlist) {
   if (!playlist || playlist.length === 0) {
     return { currentTrackIndex: 0, currentTrackTime: 0, currentTrack: null, totalPlaylistDuration: 0 };
   }
 
-  // 1. Calculate cumulative start time for each track using exact duration if available
+  // 1. Calculate cumulative start time using strictly fixed durations
   let accumulatedTime = 0;
   const tracksWithTiming = playlist.map((track) => {
-    const loadedDuration = songDurationsMap[track.id];
-    const duration = loadedDuration && loadedDuration > 10 ? loadedDuration : (Number(track.durationSeconds) || DEFAULT_SONG_DURATION);
+    const duration = Number(track.durationSeconds) || DEFAULT_SONG_DURATION;
     const startTime = accumulatedTime;
     accumulatedTime += duration;
     return { ...track, durationSeconds: duration, startTime, endTime: accumulatedTime };

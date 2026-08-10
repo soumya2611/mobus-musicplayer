@@ -15,7 +15,6 @@ import { startLivePresenceHeartbeat, subscribeToLiveListenersCount } from './ser
 
 export default function App() {
   const [allSongsList, setAllSongsList] = useState(defaultStaticPlaylist);
-  const [songDurationsMap, setSongDurationsMap] = useState({});
   const [liveListenersCount, setLiveListenersCount] = useState(1);
   const [enabledSongIds, setEnabledSongIds] = useState(() => defaultStaticPlaylist.map(s => s.id));
 
@@ -73,10 +72,10 @@ export default function App() {
 
   const audioRef = useRef(null);
 
-  // 24/7 Live Radio Synchronization Engine Loop (runs every 1s using deterministic song durations)
+  // 24/7 Live Radio Synchronization Engine Loop (runs every 1s using PURE deterministic song durations)
   useEffect(() => {
     const syncLiveRadio = () => {
-      const liveState = calculateLiveRadioState(validPlaylist, songDurationsMap);
+      const liveState = calculateLiveRadioState(validPlaylist);
       setCurrentTrackIndex(prevIdx => {
         if (prevIdx !== liveState.currentTrackIndex) {
           return liveState.currentTrackIndex;
@@ -89,7 +88,7 @@ export default function App() {
     syncLiveRadio();
     const interval = setInterval(syncLiveRadio, 1000);
     return () => clearInterval(interval);
-  }, [validPlaylist, songDurationsMap]);
+  }, [validPlaylist]);
 
   // Subscribe to central Firebase real-time radio state on mount
   useEffect(() => {
@@ -170,19 +169,13 @@ export default function App() {
     }
   }, [targetTrackTime, isPlaying]);
 
-  // Audio event listeners & exact duration tracking
+  // Audio event listeners
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => {
-      const realDur = Math.round(audio.duration || 0);
-      setDuration(realDur);
-      if (currentTrack?.id && realDur > 10) {
-        setSongDurationsMap(prev => ({ ...prev, [currentTrack.id]: realDur }));
-      }
-    };
+    const updateDuration = () => setDuration(Math.round(audio.duration || currentTrack.durationSeconds || 270));
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
@@ -219,6 +212,9 @@ export default function App() {
         preload="metadata"
         onError={(e) => {
           console.warn(`Audio stream error for "${currentTrack?.englishTitle}". Checking fallback stream...`);
+          setTimeout(() => {
+            setCurrentTrackIndex(prev => (prev + 1) % (validPlaylist.length || 1));
+          }, 800);
         }}
       />
 
