@@ -68,13 +68,24 @@
   }
 }
 
-.animate-bus-bounce {
-  animation: busBounce 0.45s ease-in-out infinite;
+/* Enable bounce only on desktop (sm breakpoint: min-width 640px) */
+@media (min-width: 640px) {
+  .animate-bus-bounce {
+    animation: busBounce 0.45s ease-in-out infinite;
+  }
+
+  .animate-bus-stopped {
+    animation: busBounce 1.8s ease-in-out infinite;
+  }
 }
 
-.animate-bus-stopped {
-  animation: busBounce 1.8s ease-in-out infinite;
+@media (max-width: 639px) {
+  .animate-bus-bounce,
+  .animate-bus-stopped {
+    animation: none !important;
+  }
 }
+
 
 /* Wheel rotation animation */
 @keyframes spinWheel {

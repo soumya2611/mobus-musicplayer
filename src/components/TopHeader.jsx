@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, Navigation, Sun, Moon, Sparkles, ListMusic, Globe, Lock, Menu } from 'lucide-react';
+import { Clock, Navigation, Sun, Moon, Sparkles, ListMusic, Lock, Menu } from 'lucide-react';
 import { BUS_ROUTES } from '../data/playlist';
-import { translations } from '../data/translations';
 import MobileSidebar from './MobileSidebar';
 
 export default function TopHeader({
@@ -13,13 +12,10 @@ export default function TopHeader({
   onToggleQueue,
   onOpenAdmin,
   isShuffle,
-  onToggleShuffle,
-  lang,
-  onChangeLang
+  onToggleShuffle
 }) {
   const [timeStr, setTimeStr] = useState('');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const t = translations[lang] || translations.or;
 
   // Update clock every second
   useEffect(() => {
@@ -33,12 +29,12 @@ export default function TopHeader({
   }, []);
 
   const route = BUS_ROUTES[currentRouteIndex];
-  const fromCity = lang === 'or' ? route.orFrom : lang === 'hi' ? route.hiFrom : route.enFrom;
-  const toCity = lang === 'or' ? route.orTo : lang === 'hi' ? route.hiTo : route.enTo;
+  const fromCity = route.enFrom;
+  const toCity = route.enTo;
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-30 px-3 sm:px-4 py-2 flex items-center justify-between backdrop-blur-md bg-slate-950/70 border-b border-white/10 text-xs font-odia">
+      <header className="fixed top-0 left-0 right-0 z-30 px-3 sm:px-4 py-2 flex items-center justify-between backdrop-blur-md bg-slate-950/70 border-b border-white/10 text-xs font-sans">
         
         {/* Left: Clock & Desktop Location Route */}
         <div className="flex items-center gap-1.5 sm:gap-2.5">
@@ -49,7 +45,7 @@ export default function TopHeader({
 
           <button
             onClick={setNextRoute}
-            title={t.changeRoute}
+            title="Change Route"
             className="hidden md:flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 transition-all cursor-pointer text-xs"
           >
             <Navigation className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
@@ -60,46 +56,14 @@ export default function TopHeader({
 
         {/* Center Title Logo: Mo Bus */}
         <div className="text-center">
-          <h1 className="font-odia text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(251,191,36,0.4)] tracking-wide">
-            {t.title}
+          <h1 className="text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(251,191,36,0.4)] tracking-wide">
+            Mo Bus
           </h1>
         </div>
 
         {/* Right Desktop Controls */}
         <div className="hidden md:flex items-center gap-2">
           
-          {/* Multilingual Selector Toggle */}
-          <div className="flex items-center bg-slate-900/80 border border-slate-700/80 rounded-full p-0.5 text-xs font-bold text-slate-300">
-            <Globe className="w-3.5 h-3.5 ml-2 text-amber-400" />
-            
-            <button
-              onClick={() => onChangeLang('or')}
-              className={`px-2 py-0.5 rounded-full transition-colors cursor-pointer ${
-                lang === 'or' ? 'bg-amber-500 text-slate-950 font-black' : 'hover:text-amber-300'
-              }`}
-            >
-              ଓଡ଼ିଆ
-            </button>
-            
-            <button
-              onClick={() => onChangeLang('hi')}
-              className={`px-2 py-0.5 rounded-full transition-colors cursor-pointer ${
-                lang === 'hi' ? 'bg-amber-500 text-slate-950 font-black' : 'hover:text-amber-300'
-              }`}
-            >
-              हिंदी
-            </button>
-
-            <button
-              onClick={() => onChangeLang('en')}
-              className={`px-2 py-0.5 rounded-full transition-colors cursor-pointer ${
-                lang === 'en' ? 'bg-amber-500 text-slate-950 font-black' : 'hover:text-amber-300'
-              }`}
-            >
-              EN
-            </button>
-          </div>
-
           {/* Admin Panel Button */}
           <button
             onClick={onOpenAdmin}
@@ -114,10 +78,10 @@ export default function TopHeader({
           <button
             onClick={onToggleQueue}
             className="p-1.5 px-2.5 rounded-full bg-indigo-950/80 border border-indigo-500/40 text-indigo-200 hover:bg-indigo-900/80 transition-all cursor-pointer font-bold text-xs flex items-center gap-1"
-            title={t.viewQueue}
+            title="Song Queue"
           >
             <ListMusic className="w-3.5 h-3.5 text-indigo-400" />
-            <span>{t.viewQueue}</span>
+            <span>Song Queue</span>
           </button>
 
           {/* Time of day toggle */}
@@ -128,7 +92,7 @@ export default function TopHeader({
               setTimeOfDay(modes[nextIdx]);
             }}
             className="p-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700/80 text-amber-300 border border-slate-600 transition-transform active:scale-95 cursor-pointer"
-            title={`${t.changeSky} (${timeOfDay})`}
+            title={`Sky Theme (${timeOfDay})`}
           >
             {timeOfDay === 'sunset' && <Sun className="w-3.5 h-3.5 text-amber-400" />}
             {timeOfDay === 'night' && <Moon className="w-3.5 h-3.5 text-indigo-300" />}
@@ -141,10 +105,10 @@ export default function TopHeader({
           <button
             onClick={() => setIsMobileSidebarOpen(true)}
             className="p-1.5 px-2.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-300 hover:bg-slate-800 transition-all cursor-pointer flex items-center gap-1 text-xs font-bold shadow-md"
-            title={t.menuLabel}
+            title="Menu"
           >
             <Menu className="w-4 h-4 text-amber-400" />
-            <span>{t.menuLabel}</span>
+            <span>Menu</span>
           </button>
         </div>
 
@@ -162,8 +126,6 @@ export default function TopHeader({
         onOpenAdmin={onOpenAdmin}
         isShuffle={isShuffle}
         onToggleShuffle={onToggleShuffle}
-        lang={lang}
-        onChangeLang={onChangeLang}
       />
     </>
   );

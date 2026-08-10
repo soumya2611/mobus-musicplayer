@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function HighwayBackground({ isPlaying, timeOfDay, currentRoute, lang }) {
+export default function HighwayBackground({ isPlaying, timeOfDay, currentRoute }) {
   // Dynamic Sky Background gradients based on time of day
   const skyGradients = {
     sunset: 'from-amber-950 via-rose-950 to-slate-950',
@@ -14,8 +14,8 @@ export default function HighwayBackground({ isPlaying, timeOfDay, currentRoute, 
     dawn: 'bg-gradient-to-tr from-rose-400 to-amber-300 shadow-[0_0_100px_rgba(244,63,94,0.6)] w-24 h-24 sm:w-32 sm:h-32'
   };
 
-  // Get destination city name based on language
-  const destCity = lang === 'or' ? currentRoute?.orTo : lang === 'hi' ? currentRoute?.hiTo : currentRoute?.enTo || 'Odisha';
+  // Get destination city name in English
+  const destCity = currentRoute?.enTo || 'Odisha';
   const distance = currentRoute?.distanceKm || 50;
   const routeNo = currentRoute?.routeNo || 'NH-44';
 
@@ -117,8 +117,8 @@ export default function HighwayBackground({ isPlaying, timeOfDay, currentRoute, 
 
                 {/* Highway Dhaba / Service Sign */}
                 {i % 2 === 0 && (
-                  <div className="px-3 py-1 bg-emerald-800 text-emerald-100 border border-emerald-400 rounded text-[10px] font-odia shadow-lg font-bold flex items-center gap-1">
-                    <span>🍱 Punjabi Dhaba 500m</span>
+                  <div className="px-3 py-1 bg-emerald-800 text-emerald-100 border border-emerald-400 rounded text-[10px] shadow-lg font-bold flex items-center gap-1">
+                    <span>🍱 Highway Dhaba 500m</span>
                   </div>
                 )}
               </div>

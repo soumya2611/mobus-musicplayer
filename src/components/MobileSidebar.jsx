@@ -1,7 +1,6 @@
 import React from 'react';
-import { X, Navigation, Sun, Moon, Sparkles, ListMusic, Globe, Lock, MapPin, Radio, Shuffle } from 'lucide-react';
+import { X, Navigation, Sun, Moon, Sparkles, ListMusic, Lock, MapPin, Radio, Shuffle } from 'lucide-react';
 import { BUS_ROUTES } from '../data/playlist';
-import { translations } from '../data/translations';
 
 export default function MobileSidebar({
   isOpen,
@@ -13,16 +12,12 @@ export default function MobileSidebar({
   onToggleQueue,
   onOpenAdmin,
   isShuffle,
-  onToggleShuffle,
-  lang,
-  onChangeLang
+  onToggleShuffle
 }) {
   if (!isOpen) return null;
 
-  const t = translations[lang] || translations.or;
-
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-slate-950/80 backdrop-blur-md select-none font-odia animate-fade-in md:hidden">
+    <div className="fixed inset-0 z-50 flex justify-end bg-slate-950/80 backdrop-blur-md select-none font-sans animate-fade-in md:hidden">
       
       {/* Backdrop click to close */}
       <div className="absolute inset-0" onClick={onClose} />
@@ -37,8 +32,8 @@ export default function MobileSidebar({
               <Radio className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <h2 className="font-odia text-lg font-bold text-amber-300">
-                {t.title} {t.controlsTitle}
+              <h2 className="text-lg font-bold text-amber-300">
+                Mo Bus Controls
               </h2>
               <p className="text-[10px] text-slate-400">Mobile Control Center</p>
             </div>
@@ -52,61 +47,16 @@ export default function MobileSidebar({
           </button>
         </div>
 
-        {/* Section 1: Language Switcher */}
-        <div className="py-4 border-b border-white/10">
-          <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5 mb-2.5">
-            <Globe className="w-4 h-4 text-amber-400" />
-            <span>{t.selectLanguage}</span>
-          </label>
-
-          <div className="grid grid-cols-3 gap-2">
-            <button
-              onClick={() => onChangeLang('or')}
-              className={`py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
-                lang === 'or'
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-black shadow-md'
-                  : 'bg-slate-900/80 text-slate-300 border-slate-700 hover:border-amber-400'
-              }`}
-            >
-              ଓଡ଼ିଆ
-            </button>
-
-            <button
-              onClick={() => onChangeLang('hi')}
-              className={`py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
-                lang === 'hi'
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-black shadow-md'
-                  : 'bg-slate-900/80 text-slate-300 border-slate-700 hover:border-amber-400'
-              }`}
-            >
-              हिंदी
-            </button>
-
-            <button
-              onClick={() => onChangeLang('en')}
-              className={`py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
-                lang === 'en'
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-black shadow-md'
-                  : 'bg-slate-900/80 text-slate-300 border-slate-700 hover:border-amber-400'
-              }`}
-            >
-              English
-            </button>
-          </div>
-        </div>
-
-        {/* Section 2: Location Routes */}
+        {/* Section 1: Location Routes */}
         <div className="py-4 border-b border-white/10">
           <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5 mb-2.5">
             <MapPin className="w-4 h-4 text-amber-400" />
-            <span>{t.selectRoute}</span>
+            <span>Select Route</span>
           </label>
 
           <div className="space-y-2">
             {BUS_ROUTES.map((route, idx) => {
               const isSelected = idx === currentRouteIndex;
-              const fromCity = lang === 'or' ? route.orFrom : lang === 'hi' ? route.hiFrom : route.enFrom;
-              const toCity = lang === 'or' ? route.orTo : lang === 'hi' ? route.hiTo : route.enTo;
 
               return (
                 <button
@@ -123,7 +73,7 @@ export default function MobileSidebar({
                 >
                   <div className="flex items-center gap-2">
                     <Navigation className={`w-3.5 h-3.5 ${isSelected ? 'text-amber-400 animate-pulse' : 'text-slate-500'}`} />
-                    <span className="text-xs">{fromCity} ➔ {toCity}</span>
+                    <span className="text-xs">{route.enFrom} ➔ {route.enTo}</span>
                   </div>
                   <span className="text-[10px] opacity-75 font-mono px-1.5 py-0.5 rounded bg-black/40">{route.routeNo}</span>
                 </button>
@@ -132,11 +82,11 @@ export default function MobileSidebar({
           </div>
         </div>
 
-        {/* Section 3: Sky Mood Theme */}
+        {/* Section 2: Sky Mood Theme */}
         <div className="py-4 border-b border-white/10">
           <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5 mb-2.5">
             <Sun className="w-4 h-4 text-amber-400" />
-            <span>{t.selectSky}</span>
+            <span>Sky Environment</span>
           </label>
 
           <div className="grid grid-cols-3 gap-2">
@@ -178,7 +128,7 @@ export default function MobileSidebar({
           </div>
         </div>
 
-        {/* Section 4: Quick Action Buttons */}
+        {/* Section 3: Quick Action Buttons */}
         <div className="pt-4 space-y-2.5">
           <button
             onClick={onToggleShuffle}
@@ -189,7 +139,7 @@ export default function MobileSidebar({
             }`}
           >
             <Shuffle className="w-4 h-4" />
-            <span>{isShuffle ? t.shuffleOn : t.shuffleOff}</span>
+            <span>{isShuffle ? 'Shuffle On 🔀' : 'Shuffle Off ➡️'}</span>
           </button>
 
           <button
@@ -200,7 +150,7 @@ export default function MobileSidebar({
             className="w-full py-2.5 px-4 rounded-xl bg-indigo-950/80 border border-indigo-500/40 text-indigo-200 hover:bg-indigo-900/80 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer"
           >
             <ListMusic className="w-4 h-4 text-indigo-400" />
-            <span>{t.viewQueue}</span>
+            <span>Song Queue</span>
           </button>
 
           <button
@@ -211,7 +161,7 @@ export default function MobileSidebar({
             className="w-full py-2.5 px-4 rounded-xl bg-slate-800/90 border border-amber-500/30 text-amber-300 hover:bg-slate-700 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer"
           >
             <Lock className="w-4 h-4 text-amber-400" />
-            <span>{t.adminPanel}</span>
+            <span>Admin Control Panel</span>
           </button>
         </div>
 

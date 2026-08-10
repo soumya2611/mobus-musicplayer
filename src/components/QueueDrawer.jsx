@@ -1,14 +1,11 @@
 import React from 'react';
 import { X, Radio, Disc, Lock } from 'lucide-react';
-import { translations } from '../data/translations';
 
-export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, isPlaying, lang }) {
+export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, isPlaying }) {
   if (!isOpen) return null;
 
-  const t = translations[lang] || translations.or;
-
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-slate-950/75 backdrop-blur-sm select-none font-odia animate-fade-in">
+    <div className="fixed inset-0 z-50 flex justify-end bg-slate-950/75 backdrop-blur-sm select-none font-sans animate-fade-in">
       
       {/* Backdrop click to close */}
       <div className="absolute inset-0" onClick={onClose} />
@@ -23,11 +20,11 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
               <Radio className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <h2 className="font-odia text-lg sm:text-xl font-bold text-slate-100">
-                {t.queueTitle}
+              <h2 className="text-lg sm:text-xl font-bold text-slate-100">
+                Song Queue
               </h2>
               <p className="text-xs text-amber-300/80 font-medium">
-                {t.queueHeader} • {playlist.length} Songs
+                Mo Bus Live Radio • {playlist.length} Songs
               </p>
             </div>
           </div>
@@ -43,7 +40,7 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
         {/* Notice Info Banner */}
         <div className="my-3 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs flex items-center gap-2 font-sans shrink-0">
           <Lock className="w-4 h-4 shrink-0 text-amber-400" />
-          <span>{t.queueNoticeBanner}</span>
+          <span>Continuous Bus Radio — Tracks auto-play in sequence</span>
         </div>
 
         {/* Highly-optimized 60fps Smooth Playlist Songs Queue List */}
@@ -65,7 +62,7 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
                   <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-slate-950">
                     <img
                       src={track.cover}
-                      alt={track.title}
+                      alt={track.englishTitle}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover"
@@ -80,11 +77,11 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
                       <span className={`text-xs font-bold ${isCurrent ? 'text-amber-300' : 'text-slate-200'} truncate`}>
-                        {track.title}
+                        {track.englishTitle}
                       </span>
                     </div>
                     <p className="text-[11px] text-amber-200/80 truncate">
-                      {track.englishTitle} • <span className="text-slate-400">{track.movie}</span>
+                      {track.title} • <span className="text-slate-400">{track.movie}</span>
                     </p>
                     <p className="text-[10px] text-slate-400 truncate">
                       🎤 {track.artists}
@@ -97,7 +94,7 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
                   {isCurrent ? (
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400 text-slate-950 text-[10px] font-bold">
                       <span className="w-1.5 h-1.5 rounded-full bg-slate-950 animate-ping" />
-                      {t.playingNow}
+                      Playing
                     </span>
                   ) : (
                     <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">
@@ -112,8 +109,8 @@ export default function QueueDrawer({ isOpen, onClose, playlist, currentIndex, i
 
         {/* Footer */}
         <div className="pt-3 border-t border-white/10 text-center shrink-0">
-          <p className="text-[11px] text-slate-400 font-odia">
-            {t.title} • Safe & Scenic Highway Experience 🚌
+          <p className="text-[11px] text-slate-400">
+            Mo Bus • Safe & Scenic Highway Experience 🚌
           </p>
         </div>
 

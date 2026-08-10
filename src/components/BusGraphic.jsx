@@ -4,26 +4,12 @@ export default function BusGraphic({
   isPlaying,
   isHonking,
   busModel = "mobus",
-  currentRoute,
-  lang,
-  quotes = [],
+  currentRoute
 }) {
-  // Dynamic route signboard text
-  const fromCity =
-    lang === "or"
-      ? currentRoute?.orFrom
-      : lang === "hi"
-        ? currentRoute?.hiFrom
-        : currentRoute?.enFrom;
-  const toCity =
-    lang === "or"
-      ? currentRoute?.orTo
-      : lang === "hi"
-        ? currentRoute?.hiTo
-        : currentRoute?.enTo;
+  // Dynamic route signboard text in English
+  const fromCity = currentRoute?.enFrom || "Bhubaneswar";
+  const toCity = currentRoute?.enTo || "Sambalpur";
   const routeText = `🚌 Mo Bus ★ ${fromCity} ➔ ${toCity} ★ HORN OK PLEASE`;
-
-  const currentQuote = quotes[0] || "ମୋ ବସ୍ 🚌 — ସୁରକ୍ଷିତ ଯାତ୍ରା";
 
   // Palette definitions for 3 distinct bus models
   const themes = {
@@ -68,16 +54,18 @@ export default function BusGraphic({
   const theme = themes[busModel] || themes.mobus;
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto flex justify-center items-end select-none pointer-events-none font-odia">
-      {/* Headlight beam shining on asphalt */}
-      <div
-        className={`absolute bottom-6 right-[-140px] sm:right-[-320px] w-[260px] sm:w-[480px] h-[70px] sm:h-[100px] headlight-beam opacity-90 transition-opacity duration-300 ${isPlaying ? "opacity-90" : "opacity-60"}`}
-      />
-
+    <div className="relative w-full max-w-4xl mx-auto flex justify-center items-end select-none pointer-events-none font-sans">
       {/* Bus Body Container */}
       <div
         className={`relative w-[270px] sm:w-[420px] md:w-[580px] transition-all duration-300 ${isPlaying ? "animate-bus-bounce" : "animate-bus-stopped"} ${isHonking ? "scale-105" : "scale-100"}`}
       >
+        {/* Headlight beam shining on asphalt (bounces synchronously with bus body suspension) */}
+        <div
+          className={`absolute bottom-6 right-[-140px] sm:right-[-320px] w-[260px] sm:w-[480px] h-[70px] sm:h-[100px] headlight-beam transition-opacity duration-300 pointer-events-none z-0 ${isPlaying ? "opacity-90" : "opacity-60"}`}
+        />
+
+
+
         {/* Rear Exhaust Smoke Puffs */}
         {isPlaying && (
           <div className="absolute bottom-6 left-2 z-0">
@@ -221,15 +209,6 @@ export default function BusGraphic({
               strokeWidth="6"
               fill="none"
             />
-            {/* Steering wheel */}
-            {/* <circle
-              cx="612"
-              cy="118"
-              r="14"
-              stroke="#e2e8f0"
-              strokeWidth="3"
-              fill="none"
-            /> */}
 
             {/* Passenger Windows */}
             {Array.from({ length: 6 }).map((_, i) => {
@@ -285,23 +264,6 @@ export default function BusGraphic({
             strokeWidth="2"
           />
           <circle cx="490" cy="195" r="3" fill={theme.doorBadge} />
-
-          {/* Bumper Quotes & Stickers */}
-          <g>
-            {/* Side Quote Badge */}
-            {/* <rect x="150" y="180" width="280" height="34" fill="#0f172a" rx="6" stroke={theme.quoteBorder} strokeWidth="2" />
-            <text
-              x="290"
-              y="203"
-              fill={theme.quoteText}
-              fontSize="15"
-              fontWeight="bold"
-              fontFamily="Noto Sans Oriya, Rozha One, sans-serif"
-              textAnchor="middle"
-            >
-              {currentQuote}
-            </text> */}
-          </g>
 
           {/* Headlights & Tail Lights */}
           <g>
@@ -420,8 +382,8 @@ export default function BusGraphic({
         </svg>
 
         {/* Bus Route Signboard Header on Roof */}
-        <div className="absolute top-[45%] left-[12%] right-[38%] px-2 py-0.5 text-center  z-20 overflow-hidden">
-          <div className="text-[9px] sm:text-xs font-odia text-black font-bold whitespace-nowrap animate-marquee">
+        <div className="absolute top-[45%] left-[12%] right-[38%] px-2 py-0.5 text-center z-20 overflow-hidden">
+          <div className="text-[9px] sm:text-xs font-sans text-black font-bold whitespace-nowrap animate-marquee">
             {routeText}
           </div>
         </div>
